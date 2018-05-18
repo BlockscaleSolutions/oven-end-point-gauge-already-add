@@ -1,0 +1,77 @@
+version: '3'
+services:
+  app:
+    image: blockchainlg/app:latest
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://blg-app.eastus.cloudapp.azure.com
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.3
+
+  ipfs-service:
+    image: blockchainlg/ipfs-service:latest
+    ports:
+      - "3003:3003"
+    environment:
+      IPFS_URL: 'https://ipfs.infura.io'
+      IPFS_PORT: 5001
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.1
+
+  db-service:
+    image: blockchainlg/db-service:latest
+    volumes:
+      - ./db-data:/var/lib/db
+    ports:
+      - "8000:8000"
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.2
+
+  eth-service:
+    image: blockchainlg/eth-service:latest
+    ports:
+      - "3001:3001"
+    environment:
+      SERVER_PORT: 3001
+      RPC_URL: http://52.168.105.41
+      RPC_PORT: 9876
+      HARYANA_PROXY_ADDR: "0x6d522ae327c4eeef3ecd893e2669014b1f508640"
+      ASSET_REGISTRY_ADDR: "0xb4f3b8c9c5e805ab14be89a1e789b52454b66b10"
+      THREADS: 4
+    depends_on:
+      - db-service
+      - ipfs-service
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.5
+
+  land-registry-service:
+    image: blockchainlg/land-registry-service:latest
+    ports:
+      - "3002:3002"
+    environment:
+      DB_SERVICE: http://db-service:8000
+      ETH_SERVICE: http://eth-service:3001
+      IPFS_SERVICE: http://ipfs-service:3003
+      SERVER_PORT: 3002
+      THREADS: 4
+    depends_on:
+      - db-service
+      - eth-service
+      - ipfs-service
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.6
+volumes:
+  db-data:
+
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
