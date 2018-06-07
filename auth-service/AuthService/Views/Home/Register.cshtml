@@ -1,0 +1,36 @@
+@model RegistryModel
+
+<div>
+    <form asp-action="Register" method="post">
+        <div>
+            <label asp-for="email_address"></label>
+            <div>
+                <input asp-for="email_address" />
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="username"></label>
+            <div>
+                <input asp-for="username" />
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="password"></label>
+            <div>
+                <input asp-for="password" />
+            </div>
+        </div>
+
+        <div>
+            <label asp-for="confirm_password"></label>
+            <div>
+                <input asp-for="confirm_password" />
+            </div>
+        </div>
+
+        <button type="submit">Submit</button>
+        <div asp-validation-summary="All"></div>
+    </form>
+</div>

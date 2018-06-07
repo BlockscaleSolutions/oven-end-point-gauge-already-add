@@ -1,0 +1,26 @@
+.root {
+    width: 300px;
+}
+
+.root img {
+    width: 100%;
+}
+
+.root input {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: 0.618rem 1rem;
+}
+
+.root input[type="text"] {
+    border-bottom: 1px solid #eee;
+}
+
+.root :global(.view-actions) {
+    justify-content: flex-end;
+}
+
+.root :global(.view-actions) button {
+    color: #fff;
+}

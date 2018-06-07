@@ -1,0 +1,7 @@
+.vscode/
+
+[Bb]in/
+[Mm]igrations/
+[Oo]bj/
+
+appsettings.Development.json
