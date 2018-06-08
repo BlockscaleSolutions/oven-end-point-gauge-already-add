@@ -1,0 +1,10 @@
+{
+  "name": "donor-contracts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Blockscale Solutions",
+  "license": "MIT",
+  "dependencies": {
+    "zeppelin-solidity": "^1.9.0"
+  }
+}

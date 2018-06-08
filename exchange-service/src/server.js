@@ -4,7 +4,7 @@ const restify = require('restify');
 const { getMethodAPI, getIP } = require('./utils');
 
 // routers
-const pingRouter = require('./routes/ping');
+const donateRouter = require('./routes/donate');
 
 // server config
 const server = restify.createServer({
@@ -36,6 +36,6 @@ server.on('restifyError', (req, res, err, callback) => {
 });
 
 // apply routes
-pingRouter.applyRoutes(server);
+donateRouter.applyRoutes(server);
 
 module.exports = server;
