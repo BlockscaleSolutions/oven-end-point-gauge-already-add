@@ -9,27 +9,18 @@ services:
       testing_net:
         ipv4_address: 172.28.1.4
 
-  # eth-service:
-  #   # image: blockchainlg/eth-service${TAG}
-  #   # network_mode: "host"
-  #   build: ./eth-service
-  #   ports:
-  #     - "3001:3001"
-  #   environment:
-  #     NETWORK: "docker"    # used to correctly interact with ether client to deploy fresh contracts
-  #     SERVER_PORT: 3001
-  #     RPC_URL: http://eth  # TODO define this is prod as well, synchronicity issues exist...
-  #     RPC_PORT: 8545
-  #     HARYANA_PROXY_ADDR: 0  # TODO will need to define this / deploy it on boot?
-  #     ASSET_REGISTRY_ADDR: 0  # TODO will need to define this / deploy it on boot?
-  #     THREADS: 4
-  #   depends_on:
-  #     - eth
-  #     - db-service
-  #     - ipfs-service
-  #   networks:
-  #     testing_net:
-  #       ipv4_address: 172.28.1.5
+  exchange-service:
+    build: ./exchange-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - eth
+    command: ["yarn", "start", "--eth-node-url", "http://eth"]
+    environment:
+        # MAIL_PASS: <FIXME>
+    networks:
+      testing_net:
+        ipv4_address: 172.28.1.5
 
 networks:
   testing_net:

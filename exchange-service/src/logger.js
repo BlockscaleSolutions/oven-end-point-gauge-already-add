@@ -20,10 +20,10 @@ const log = bunyan.createLogger({
   name,
   serializers: bunyan.stdSerializers,
   streams: [
-    {
-      path: './server.log',
-      level: 'debug',
-    },
+    // {
+    //   path: './server.log',
+    //   level: 'debug',
+    // },
     {
       stream: prettyStdOut,
       level: 'debug',

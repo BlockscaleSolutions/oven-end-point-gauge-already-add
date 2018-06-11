@@ -66,7 +66,7 @@ async function claimDonation(req, res, next) {
     // Set the donation to the updated object
     donations[from] = donation;
 
-    sendEmailNotifications(donors); // Notify donors and others involved
+    await sendEmailNotifications(donors); // Notify donors and others involved
     res.send(201, { txHash, donors });
     return next();
   } catch (err) {

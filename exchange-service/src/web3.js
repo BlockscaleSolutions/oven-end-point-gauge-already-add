@@ -1,12 +1,16 @@
 //
 // Init the web3 object and required contracts
 //
+const argv = require('./argv');
 const Web3 = require('web3');
 const donationRegistryArtifacts = require('../truffle/build/contracts/MiniDonationRegistry.json');
 const tokenArtifacts = require('../truffle/build/contracts/DaiMock.json');
 const standardTokenArtifacts = require('../truffle/build/contracts/StandardToken.json');
 
-const { DONATION_REGISTRY_ADDRESS, TOKEN_ADDRESS, RPC_URL, RPC_PORT } = process.env;
+const { DONATION_REGISTRY_ADDRESS, TOKEN_ADDRESS } = process.env;
+
+const RPC_PORT = argv['eth-node-port'];
+const RPC_URL = argv['eth-node-url'];
 
 // Init the web3 connection
 const web3 = new Web3(new Web3.providers.HttpProvider(`${RPC_URL || 'http://localhost'}:${RPC_PORT || 8545}`));
