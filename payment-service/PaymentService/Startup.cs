@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PaymentService.Dtos;
-using PaymentService.Models;
 using PaymentService.Services;
 using Stripe;
 
