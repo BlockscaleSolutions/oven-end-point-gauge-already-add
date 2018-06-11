@@ -1,10 +1,11 @@
+using System;
 using System.Threading.Tasks;
 using AuthService.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace AuthService.Services
 {
-    public class RegistryService
+    public class RegistryService : IRegistryService
     {
         private UserManager<IdentityUser> _user_manager;
 
@@ -15,23 +16,32 @@ namespace AuthService.Services
 
         public async Task Register(RegistryModel model)
         {
-            var user = await _user_manager.FindByNameAsync(model.username);
-
-            if (user == null)
-                user = await _user_manager.FindByEmailAsync(model.email_address);
-
-            if (user == null)
+            try
             {
-                user = new IdentityUser
-                {
-                    Id = System.Guid.NewGuid().ToString(),
-                    UserName = model.username
-                };
+                var user = await _user_manager.FindByNameAsync(model.username);
 
-                await _user_manager.CreateAsync(user, model.password);
+                if (user == null)
+                    user = await _user_manager.FindByEmailAsync(model.email_address);
+
+                if (user == null)
+                {
+                    user = new IdentityUser
+                    {
+                        Id = System.Guid.NewGuid().ToString(),
+                        UserName = model.username,
+                        Email = model.email_address
+                    };
+
+                    await _user_manager.CreateAsync(user, model.password);
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Ooopps, a server error has occurred");
             }
 
-            throw new System.Exception();
+            throw new Exception("username and/or email address is already registered");
         }
     }
 }
