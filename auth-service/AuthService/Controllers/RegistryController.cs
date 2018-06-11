@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using AuthService.Models;
-using Microsoft.AspNetCore.Identity;
+using AuthService.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthService.Controllers
@@ -10,33 +11,28 @@ namespace AuthService.Controllers
     [Route("api/[controller]")]
     public class RegistryController : ControllerBase
     {
-        private UserManager<IdentityUser> _user_manager;
+        private readonly IRegistryService _registry_service;
 
-        public RegistryController(UserManager<IdentityUser> user_manager)
+        public RegistryController(IRegistryService registry_service)
         {
-            this._user_manager = user_manager;
+            this._registry_service = registry_service;
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegistryModel model)
         {
             if (ModelState.IsValid)
-            {
-                var user = await _user_manager.FindByNameAsync(model.username);
-                if (user == null)
+                try
                 {
-                    user = new IdentityUser
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        UserName = model.username
-                    };
-
-                    await _user_manager.CreateAsync(user, model.password);
+                    await _registry_service.Register(model);
                     return Ok();
                 }
-                return BadRequest("username already exists");
-            }
+                catch (Exception ex)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
+
             return BadRequest();
         }
     }

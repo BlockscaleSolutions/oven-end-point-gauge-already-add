@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
+using AuthService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -31,13 +33,31 @@ namespace AuthService
             );
 
             services
-                .AddIdentity<IdentityUser, IdentityRole>(options => { })
+                .AddIdentity<IdentityUser, IdentityRole>(options =>
+                {
+                    options.Lockout.AllowedForNewUsers = true;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    //
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequiredUniqueChars = 1;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    //
+                    options.User.RequireUniqueEmail = false;
+                })
                 .AddEntityFrameworkStores<IdentityDbContext>();
 
             services.AddScoped<
                 IUserStore<IdentityUser>,
                 UserOnlyStore<IdentityUser, IdentityDbContext>
             >();
+
+            services.AddScoped<IRegistryService, RegistryService>();
+            services.AddScoped<ISignInService, SignInService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -35,3 +35,10 @@ __pycache__
 
 # node
 .node*
+
+# dotnet
+.vscode/
+[Bb]in/
+[Mm]igrations/
+[Oo]bj/
+appsettings.Development.json
