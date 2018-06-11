@@ -3,8 +3,8 @@ FROM node:carbon
 RUN npm install -g yarn
 
 # Create app directory
-COPY . /usr/src/template-service
-WORKDIR /usr/src/template-service
+COPY . /usr/src/exchange-service
+WORKDIR /usr/src/exchange-service
 
 # Install app dependencies
 RUN yarn

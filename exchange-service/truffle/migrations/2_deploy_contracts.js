@@ -6,7 +6,7 @@ module.exports = (deployer, network, accounts) => {
   const [owner] = accounts;
 
   deployer.deploy(DaiMock, { from: owner }).then(() => {
-    return deployer.deploy(MiniDonationRegistry, { from: owner });
+    return deployer.deploy(MiniDonationRegistry, DaiMock.address, { from: owner });
 
   }).then(() => {
     return DaiMock.deployed();
@@ -14,5 +14,13 @@ module.exports = (deployer, network, accounts) => {
   }).then((daiMock) => {
     // Give our contract a balance to play with
     return daiMock.mint(MiniDonationRegistry.address, 1e30);
+
+  }).then(() => {
+    // Give our contract a balance to play with
+    return MiniDonationRegistry.deployed();
+    
+  }).then((registry) => {
+    // Give our contract a balance to play with
+    return registry.setAvailableReserve();
   });
 };

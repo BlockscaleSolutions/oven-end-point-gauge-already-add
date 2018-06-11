@@ -8,7 +8,7 @@ const PrettyStream = require('bunyan-prettystream');
 const prettyStdOut = new PrettyStream();
 prettyStdOut.pipe(process.stdout);
 
-let name = 'template-service';
+let name = 'exchange-service';
 
 // If a worker thread append id to name
 if (cluster.worker) {
