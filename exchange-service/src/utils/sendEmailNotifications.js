@@ -18,12 +18,6 @@ async function sendEmailNotifications(emails) {
 async function sendEmail(email) {
   // send mail with defined transport object
   return new Promise(async (resolve, reject) =>  {
-
-    console.log(process.env.MAIL_PASS);
-    console.log(process.env.MAIL_PASS);
-    console.log(process.env.MAIL_PASS);
-    console.log(process.env.MAIL_PASS);
-
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         service: 'gmail',
