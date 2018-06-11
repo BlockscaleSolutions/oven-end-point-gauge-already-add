@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using AuthService.Models;
+using AuthService.Dtos;
 using Microsoft.AspNetCore.Identity;
 
 namespace AuthService.Services
 {
     public interface ISignInService
     {
-        Task<IdentityUser> SignIn(CredentialsModel model);
+        Task<IdentityUser> SignIn(CredentialsDto model);
     }
 }

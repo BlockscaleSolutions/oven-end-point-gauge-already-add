@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using AuthService.Models;
+using AuthService.Dtos;
 
 namespace AuthService.Services
 {
     public interface IRegistryService
     {
-        Task Register(RegistryModel model);
+        Task Register(RegistryDto model);
     }
 }

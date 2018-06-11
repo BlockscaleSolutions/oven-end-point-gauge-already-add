@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AuthService.Models
+namespace AuthService.Dtos
 {
-    public class RegistryModel
+    public class RegistryDto
     {
         [Required]
         [DataType(DataType.EmailAddress)]
