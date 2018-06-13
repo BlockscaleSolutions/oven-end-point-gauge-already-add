@@ -5,6 +5,7 @@ const { getMethodAPI, getIP } = require('./utils');
 
 // routers
 const donateRouter = require('./routes/donate');
+const recipientRouter = require('./routes/recipient');
 
 // server config
 const server = restify.createServer({
@@ -37,5 +38,6 @@ server.on('restifyError', (req, res, err, callback) => {
 
 // apply routes
 donateRouter.applyRoutes(server);
+recipientRouter.applyRoutes(server);
 
 module.exports = server;

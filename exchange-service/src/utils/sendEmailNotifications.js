@@ -32,7 +32,7 @@ async function sendEmail(email) {
         from: '<noreply@blockscalesolutions.com>', // sender address
         to: email, // list of receivers
         subject: 'Your donation has been spent!', // Subject line
-        text: `Hi and thanks so much for your donation. \nWe are pleased to inform you that is was just recently accessed. \n TOOD tx details`,
+        text: `Hi and thanks so much for your donation. \nWe are pleased to inform you that is was just recently accessed. \nTOOD tx details`,
         // html: '<b>Important</b>' // html body
     };
 
@@ -44,13 +44,12 @@ function send(transporter, mailOptions) {
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
+        // FIXME not mission critical so with just log for now
         log.error({ module: 'mailer' }, `Error sending email: ${error.message}`);
-        reject(error);
+      } else {
+        log.info({ module: 'mailer' }, `Message ${info.messageId} sent: ${info.response}`);
       }
-
-      log.info({ module: 'mailer' }, `Message ${info.messageId} sent: ${info.response}`);
-
-      resolve(info);
+      resolve();
     });
   });
 }

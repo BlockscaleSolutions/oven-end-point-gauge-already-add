@@ -26,6 +26,7 @@ describe('/claimDonation POST', () => {
     };
 
     claim = {
+      to: 0,
       from: '0x1',
       amount: 100,
     }
@@ -69,6 +70,7 @@ describe('/claimDonation POST', () => {
       await sendRequest(apiUrl, 'makeDonation', 'POST', donation);
 
       const multiDonorClaim = {
+        to: 0,
         from: claim.from,
         amount: claim.amount * 3
       };

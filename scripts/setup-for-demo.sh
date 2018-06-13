@@ -20,7 +20,3 @@ truffle_migrate
 
 docker-compose build exchange-service
 docker-compose up exchange-service
-
-# sleep 5
-
-# node test/tests

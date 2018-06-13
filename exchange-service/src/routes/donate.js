@@ -28,12 +28,13 @@ initContracts().then(contracts => {
 });
 
 /**
+ * @param {Address} to
  * @param {Address} from
  * @param {Number} amount
  */
 async function claimDonation(req, res, next) {
   try {
-    const { from, amount } = req.body;
+    const { to, from, amount } = req.body;
 
     const txHash = await sendTransaction(donationRegistry, 'claimDonation', admin, req.body);
 
