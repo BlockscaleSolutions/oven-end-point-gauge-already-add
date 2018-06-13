@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using AuthService.Models;
+using AuthService.Dtos;
 using AuthService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ namespace AuthService.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegistryModel model)
+        public async Task<IActionResult> Register(RegistryDto model)
         {
             if (ModelState.IsValid)
                 try

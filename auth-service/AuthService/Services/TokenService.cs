@@ -36,8 +36,8 @@ namespace AuthService.Services
                 Subject = new ClaimsIdentity(claims),
                 Expires = now.AddMinutes(allotted_minutes),
                 SigningCredentials = credentials,
-                Issuer = "---jwt-issuer---",
-                Audience = "all"
+                Issuer = _configuration.GetSection("JWT")["issuer"],
+                Audience = _configuration.GetSection("JWT")["audience"]
             };
 
             var handler = new JwtSecurityTokenHandler();

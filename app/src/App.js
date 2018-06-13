@@ -6,6 +6,7 @@ import withAuthorization from "./_hocs/withAuthorization";
 
 import Authentication from "./views/Authentication";
 import NoMatch from "./views/NoMatch";
+import Recipient from "./views/Recipient";
 
 const Ooopps = () => (
     <div className="fit layout vertical center-center">
@@ -38,6 +39,14 @@ export default class App extends React.Component {
                     exact
                     path="/home"
                     component={withLayout(withAuthorization("*")(Home, Ooopps))}
+                />
+
+                <Route
+                    exact
+                    path="/recipient"
+                    component={withLayout(
+                        withAuthorization("recipient")(Recipient, Ooopps)
+                    )}
                 />
 
                 <Redirect to="/404" />

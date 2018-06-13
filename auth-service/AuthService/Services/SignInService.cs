@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using AuthService.Exceptions;
-using AuthService.Models;
+using AuthService.Dtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
@@ -17,7 +17,7 @@ namespace AuthService.Services
             this._user_manager = user_manager;
         }
 
-        public async Task<IdentityUser> SignIn(CredentialsModel model)
+        public async Task<IdentityUser> SignIn(CredentialsDto model)
         {
             try
             {

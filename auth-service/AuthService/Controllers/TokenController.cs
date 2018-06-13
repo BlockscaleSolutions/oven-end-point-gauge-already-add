@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AuthService.Exceptions;
-using AuthService.Models;
+using AuthService.Dtos;
 using AuthService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ namespace AuthService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(CredentialsModel model)
+        public async Task<IActionResult> SignIn(CredentialsDto model)
         {
             if (ModelState.IsValid)
                 try

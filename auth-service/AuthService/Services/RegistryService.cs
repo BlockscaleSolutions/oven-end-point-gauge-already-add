@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using AuthService.Models;
+using AuthService.Dtos;
 using Microsoft.AspNetCore.Identity;
 
 namespace AuthService.Services
@@ -14,7 +14,7 @@ namespace AuthService.Services
             this._user_manager = user_manager;
         }
 
-        public async Task Register(RegistryModel model)
+        public async Task Register(RegistryDto model)
         {
             try
             {
