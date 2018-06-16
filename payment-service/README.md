@@ -30,3 +30,9 @@ $env:ConnectionStrings:identity=";Data Source=(local),9000;Integrated Security=f
 ```PowerShell
 docker build -t payment-service-dev .
 ```
+
+# Run
+
+```PowerShell
+docker run -it --rm
+```

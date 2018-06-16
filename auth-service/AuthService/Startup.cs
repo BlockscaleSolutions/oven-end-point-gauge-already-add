@@ -59,6 +59,15 @@ namespace AuthService
             services.AddScoped<ISignInService, SignInService>();
             services.AddScoped<ITokenService, TokenService>();
 
+            services.AddCors(options =>
+                options.AddPolicy("AllowAnyOrigin", builder =>
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                )
+            );
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -71,6 +80,8 @@ namespace AuthService
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
+
+            app.UseCors("AllowAnyOrigin");
 
             app.UseMvc();
         }

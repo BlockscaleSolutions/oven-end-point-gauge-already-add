@@ -1,14 +1,8 @@
 # Running locally
 
-## start mssql server
+## prerequisites
 
-```PowerShell
-docker run -it --rm `
-    -p 9000:1433 `
-    -e ACCEPT_EULA=Y `
-    -e SA_PASSWORD=!1secret `
-    --name mssql store/microsoft/mssql-server-linux:2017-latest
-```
+have mssql-dev running
 
 ## set environment variables
 
@@ -27,4 +21,12 @@ $env:ConnectionStrings:identity=";Data Source=(local),9000;Integrated Security=f
 
 ```PowerShell
 docker build -t auth-service-dev .
+```
+
+# Run
+
+```PowerShell
+docker run -it --rm `
+    -p 9001:80 `
+    --name auth-service-dev auth-service-dev
 ```
