@@ -7,6 +7,7 @@ import withAuthorization from "./_hocs/withAuthorization";
 import Authentication from "./views/Authentication";
 import NoMatch from "./views/NoMatch";
 import Recipient from "./views/Recipient";
+import UserRegistration from "./views/UserRegistration";
 
 const Ooopps = () => (
     <div className="fit layout vertical center-center">
@@ -26,6 +27,12 @@ export default class App extends React.Component {
                 <Route exact path="/404" component={NoMatch} />
 
                 <Route exact path="/" component={Front} />
+
+                <Route
+                    exact
+                    path="/user/registration"
+                    component={UserRegistration}
+                />
 
                 <Route
                     exact

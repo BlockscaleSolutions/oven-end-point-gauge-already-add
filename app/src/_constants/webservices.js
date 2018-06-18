@@ -16,7 +16,8 @@ class WebService extends FetchJsonClient {
 
 export default new class {
     get auth() {
-        const base_url = "";
+        console.log(0);
+        const base_url = "localhost:9001/api";
         return new WebService(base_url);
     }
 

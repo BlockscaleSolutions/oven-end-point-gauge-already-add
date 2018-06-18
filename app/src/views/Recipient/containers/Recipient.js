@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import * as actions from "../../../_actions/recipient";
+//import * as actions from "../../../_actions/recipient";
 import Recipient from "../components/Recipient";
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => {};
 
