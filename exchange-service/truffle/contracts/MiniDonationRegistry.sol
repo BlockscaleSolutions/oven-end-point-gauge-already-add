@@ -33,10 +33,12 @@ contract MiniDonationRegistry {
     /**
      * @notice Recipient may claim value donated to them.
      * @dev Claim(transfer) a given token, transfer back to this contract.
+     * @param _to For example if paying a merchant.
      * @param _from Recipent claiming the donation
      * @param _amount Quantity of tokens.
      */
     function claimDonation(
+        address _to,
         address _from,
         uint256 _amount
     )   external
@@ -45,10 +47,15 @@ contract MiniDonationRegistry {
         require(msg.sender == owner_, "msg.sender != owner");
         require(balanceOf(_from) >= _amount, 'Balance insufficient');
 
-        // Allocate the amount out of the reserve to the recipient and reduce avalable reserve
         donationBalances_[_from] = donationBalances_[_from].sub(_amount);
-        availableReserve_ = availableReserve_.add(_amount);
-        lockedReserve_ = lockedReserve_.sub(_amount);
+
+        // Transferring to merchant or other recipient
+        if (_to != 0) {
+            donationBalances_[_to] = donationBalances_[_to].add(_amount);
+        } else {
+            availableReserve_ = availableReserve_.add(_amount);
+            lockedReserve_ = lockedReserve_.sub(_amount);
+        }
 
         // All txs made from this contract for now
         emit DonationClaimed(_from, _amount);

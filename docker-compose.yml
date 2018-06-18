@@ -17,7 +17,7 @@ services:
       - eth
     command: ["yarn", "start", "--eth-node-url", "http://eth"]
     environment:
-        # MAIL_PASS: <FIXME>
+        MAIL_PASS: <AL to fix for prod>
     networks:
       testing_net:
         ipv4_address: 172.28.1.5
