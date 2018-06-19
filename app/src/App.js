@@ -5,19 +5,18 @@ import withLayout from "./_hocs/withLayout";
 import withAuthorization from "./_hocs/withAuthorization";
 
 import Authentication from "./views/Authentication";
+import Front from "./views/Front";
+import Loan from "./views/Loan";
+import Marketplace from "./views/Marketplace";
 import NoMatch from "./views/NoMatch";
-import Recipient from "./views/Recipient";
-import UserRegistration from "./views/UserRegistration";
+import Borrower from "./views/Users/Borrower/Dashboard";
+import Lender from "./views/Users/Lender/Dashboard";
 
 const Ooopps = () => (
     <div className="fit layout vertical center-center">
         Ooopps you have wandered off
     </div>
 );
-
-const Front = () => <div>front page</div>;
-const Admin = () => <div>admin page</div>;
-const Home = () => <div>home page</div>;
 
 export default class App extends React.Component {
     render() {
@@ -30,29 +29,31 @@ export default class App extends React.Component {
 
                 <Route
                     exact
-                    path="/user/registration"
-                    component={UserRegistration}
-                />
-
-                <Route
-                    exact
-                    path="/admin"
+                    path="/marketplace"
                     component={withLayout(
-                        withAuthorization("admin")(Admin, Ooopps)
+                        withAuthorization("*")(Marketplace, Ooopps)
                     )}
                 />
 
                 <Route
                     exact
-                    path="/home"
-                    component={withLayout(withAuthorization("*")(Home, Ooopps))}
+                    path="/loans/:id?"
+                    component={withLayout(withAuthorization("*")(Loan, Ooopps))}
                 />
 
                 <Route
                     exact
-                    path="/recipient"
+                    path="/borrowers/:user_id"
                     component={withLayout(
-                        withAuthorization("recipient")(Recipient, Ooopps)
+                        withAuthorization("*")(Borrower, Ooopps)
+                    )}
+                />
+
+                <Route
+                    exact
+                    path="/lenders/:user_id"
+                    component={withLayout(
+                        withAuthorization("*")(Lender, Ooopps)
                     )}
                 />
 
