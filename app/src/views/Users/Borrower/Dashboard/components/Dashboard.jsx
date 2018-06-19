@@ -18,7 +18,7 @@ export default class extends React.Component {
                 <header />
 
                 <div>
-                    <Link to="/create">REQUEST LOAN</Link>
+                    <Link to="/loans">REQUEST LOAN</Link>
                 </div>
 
                 <article>
