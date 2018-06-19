@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetch: id => actions.fetch(id)
+    fetch: id => actions.fetchById(id)
 });
 
 export default withRouter(

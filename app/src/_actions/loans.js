@@ -23,7 +23,7 @@ export const create = loan => dispatch => {
         });
 };
 
-export const _fetch = id => dispatch => {
+export const fetchById = id => dispatch => {
     dispatch({ type: types.LOAN_FETCHING });
     return fetch("https://httpbin.org/get", {
         method: "GET"
