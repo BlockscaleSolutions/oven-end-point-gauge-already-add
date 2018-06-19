@@ -46,7 +46,7 @@ export default class App extends React.Component {
 
                 <Route
                     exact
-                    path="/borrowers/:user_id"
+                    path="/profile/:user_id"
                     component={withLayout(
                         withAuthorization("*")(Borrower, Ooopps)
                     )}
