@@ -12,6 +12,9 @@ import NoMatch from "./views/NoMatch";
 import Borrower from "./views/Users/Borrower/Dashboard";
 import Lender from "./views/Users/Lender/Dashboard";
 
+import "./style-reset.css";
+import "./style-layout.css";
+
 const Ooopps = () => (
     <div className="fit layout vertical center-center">
         Ooopps you have wandered off
