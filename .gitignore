@@ -39,6 +39,9 @@ __pycache__
 # dotnet
 .vscode/
 [Bb]in/
-[Mm]igrations/
+*/[Mm]igrations/
 [Oo]bj/
 appsettings.Development.json
+
+# truffle
+!truffle/[Mm]igrations/
