@@ -69,6 +69,7 @@ async function initListeners() {
   const address = '0x8c7bbeed980f9ebf0fd762864fdb26cb8dd0bcf5';
   const debt = await web3.eth.contract(DebtArtifacts.abi).at(address);
 
+  window.localWeb3 = web3;
   window.getLogsDebt = debt;
 
   debt.allEvents({ fromBlock: 'latest', toBlock: 'latest' }).watch((err, res) => {
