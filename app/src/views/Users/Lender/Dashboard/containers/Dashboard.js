@@ -57,8 +57,8 @@ function initListeners(contract) {
 }
 
 
-function getPastLoans(contract, query) {
-  contract.LoanCreated(query, { fromBlock: 0, toBlock: 'latest' }).get((err, res) => {
+function getPastLoans(contract, event, query) {
+  contract[event](query, { fromBlock: 0, toBlock: 'latest' }).get((err, res) => {
     console.log(err)
     console.log(res)
     console.log(res.length)
