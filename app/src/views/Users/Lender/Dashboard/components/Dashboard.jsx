@@ -19,18 +19,12 @@ export default class extends React.Component {
                 <article>
                     <h3>open</h3>
                     <ul>
-                        {this.props.open_obligations.map((loan, i) => (
-                            <li key={i}>{JSON.stringify(loan)}</li>
-                        ))}
                     </ul>
                 </article>
 
                 <article>
                     <h3>history</h3>
                     <ul>
-                        {this.props.history.map((loan, i) => (
-                            <li key={i}>{JSON.stringify(loan)}</li>
-                        ))}
                     </ul>
                 </article>
             </section>
