@@ -8,7 +8,7 @@ export default class extends React.Component {
             amount: "",
             term: "",
             interest_rate: "",
-            lender: ""
+            Lender_id: ""
         };
 
         this.handleChange = field => event => {
@@ -22,14 +22,9 @@ export default class extends React.Component {
         let amount = this.state.amount;
         let term = this.state.term;
         let interest_rate = this.state.interest_rate;
-        let lender = this.state.lender;
+        let Lender_id = this.state.Lender_id;
 
-        this.props.create({
-            amount,
-            term,
-            interest_rate,
-            lender
-        });
+        this.props.create(amount, term, interest_rate, Lender_id);
     }
 
     render() {
@@ -69,16 +64,18 @@ export default class extends React.Component {
 
                     <div>
                         <input
-                            value={this.state.lender}
+                            value={this.state.Lender_id}
                             type="text"
                             placeholder="Lender"
                             required
-                            onChange={this.handleChange("lender")}
+                            onChange={this.handleChange("Lender_id")}
                         />
                     </div>
 
                     <div>
-                        <Button>Create Loan</Button>
+                        <Button onClick={this.handleSubmit.bind(this)}>
+                            Create Loan
+                        </Button>
                     </div>
                 </form>
             </section>
