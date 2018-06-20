@@ -109,6 +109,11 @@ async function initListeners() {
     window.localWeb3 = web3;
     window.getLogsDebt = debt;
 
+    debt.LoanCreated({}, { fromBlock: 2492715, toBlock: 'latest' }).get((e,r) => {
+      console.log(r);
+      window.logs = r;
+    });
+
     debt.allEvents({ fromBlock: "latest", toBlock: "latest" }).watch(
         (err, res) => {
             console.log(err);
