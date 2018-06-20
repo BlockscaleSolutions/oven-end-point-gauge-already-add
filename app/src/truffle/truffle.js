@@ -24,7 +24,8 @@ module.exports = {
 	    gasPrice: 1e9
     },
     rinkeby: {
-      host: '52.168.105.41',
+      host: 'localhost',
+      // host: '52.168.105.41',
       port: 9876,  // NOT default 8545 as account will be unlocked
       network_id: '*', // Consider changing to hosted eth service?
       gas: 6.7e6,
