@@ -42,7 +42,7 @@ export default WrappedComponent => {
                                         color="inherit"
                                         className={classes.flex}
                                     >
-                                        Title
+                                        USAID DEMO
                                     </Typography>
                                     <IconButton
                                         className={classes.menu}

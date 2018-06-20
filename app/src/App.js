@@ -31,9 +31,11 @@ const uport = new Connect("USAID Demo", {
     )
 });
 
-window.borrower = '0x33785c20deec47951d756d78c2cd71859af15f78';
-window.lender = '0xd969928b995b5d30c17575459703592d8fde9f63';
+window.borrower = "0x33785c20deec47951d756d78c2cd71859af15f78";
+window.lender = "0xd969928b995b5d30c17575459703592d8fde9f63";
 window.uportWeb3 = uport.getWeb3();
+
+initContract();
 
 // Request credentials to login
 uport
@@ -48,7 +50,7 @@ uport
         const specificNetworkAddress = decodedId.address;
         window.loggedInAddress = specificNetworkAddress;
 
-        initContract();
+        // initContract();
     });
 
 async function initContract() {
@@ -62,12 +64,12 @@ async function initContract() {
 
     // createLoan();
 
-  // // Cash received!
-  // if (window.loggedInAddress === window.borrower) {
-  //   loanReceived();
-  // } else {
-  //   loanPaid();
-  // }
+    // // Cash received!
+    // if (window.loggedInAddress === window.borrower) {
+    //   loanReceived();
+    // } else {
+    //   loanPaid();
+    // }
 }
 
 function createLoan() {
@@ -82,20 +84,18 @@ function createLoan() {
     );
 }
 
-function loanReceived () {
-  window.sendTxsDebt.loanReceived(
-  (err, txHash) => {
-    console.log(err)
-    console.log(txHash)
-  });
+function loanReceived() {
+    window.sendTxsDebt.loanReceived((err, txHash) => {
+        console.log(err);
+        console.log(txHash);
+    });
 }
 
-function loanPaid () {
-  window.sendTxsDebt.loanPaid(window.borrower,
-  (err, txHash) => {
-    console.log(err)
-    console.log(txHash)
-  });
+function loanPaid() {
+    window.sendTxsDebt.loanPaid(window.borrower, (err, txHash) => {
+        console.log(err);
+        console.log(txHash);
+    });
 }
 
 async function initListeners() {
@@ -109,10 +109,12 @@ async function initListeners() {
     window.localWeb3 = web3;
     window.getLogsDebt = debt;
 
-    debt.LoanCreated({}, { fromBlock: 2492715, toBlock: 'latest' }).get((e,r) => {
-      console.log(r);
-      window.logs = r;
-    });
+    debt.LoanCreated({}, { fromBlock: 2492715, toBlock: "latest" }).get(
+        (e, r) => {
+            console.log(r);
+            window.logs = r;
+        }
+    );
 
     debt.allEvents({ fromBlock: "latest", toBlock: "latest" }).watch(
         (err, res) => {

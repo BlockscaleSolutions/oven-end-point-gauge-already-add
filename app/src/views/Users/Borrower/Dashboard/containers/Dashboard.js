@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    fetchFromBlockchain: actions.fetchFromBlockchain,
     fetchByBorrowerId: Borrower_id => {
         return dispatch(actions.fetchByBorrowerId(Borrower_id));
     }

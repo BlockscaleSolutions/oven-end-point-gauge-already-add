@@ -72,6 +72,21 @@ let _fetch = dispatch => {
         });
 };
 
+export const fetchFromBlockchain = () => {
+    return new Promise((resolve, reject) => {
+        window.getLogsDebt
+            .LoanCreated({}, { fromBlock: 2492715, toBlock: "latest" })
+            .get((err, res) => {
+                if (err) {
+                    alert("something went wrong");
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+    });
+};
+
 export const fetchAll = () => dispatch => {
     return _fetch(dispatch).then(json => {
         let loans = json;

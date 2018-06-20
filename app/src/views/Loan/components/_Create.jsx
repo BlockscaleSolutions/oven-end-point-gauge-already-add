@@ -1,5 +1,9 @@
 import React from "react";
+
+import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+
+import "./_Create.css";
 
 export default class extends React.Component {
     constructor(props) {
@@ -39,55 +43,57 @@ export default class extends React.Component {
 
     render() {
         return (
-            <section>
-                <h3>Create Loan</h3>
-                <form>
-                    <div>
-                        <input
-                            value={this.state.amount}
-                            type="text"
-                            placeholder="Amount"
-                            required
-                            onChange={this.handleChange("amount")}
-                        />
-                    </div>
+            <section className="--Create layout horizontal center-center">
+                <Paper>
+                    <h3>Create Loan</h3>
+                    <form className="">
+                        <div>
+                            <input
+                                value={this.state.amount}
+                                type="text"
+                                placeholder="Amount"
+                                required
+                                onChange={this.handleChange("amount")}
+                            />
+                        </div>
 
-                    <div>
-                        <input
-                            value={this.state.term}
-                            type="text"
-                            placeholder="Term (days)"
-                            required
-                            onChange={this.handleChange("term")}
-                        />
-                    </div>
+                        <div>
+                            <input
+                                value={this.state.term}
+                                type="text"
+                                placeholder="Term (days)"
+                                required
+                                onChange={this.handleChange("term")}
+                            />
+                        </div>
 
-                    <div>
-                        <input
-                            value={this.state.interest_rate}
-                            type="text"
-                            placeholder="Interest Rate"
-                            required
-                            onChange={this.handleChange("interest_rate")}
-                        />
-                    </div>
+                        <div>
+                            <input
+                                value={this.state.interest_rate}
+                                type="text"
+                                placeholder="Interest Rate"
+                                required
+                                onChange={this.handleChange("interest_rate")}
+                            />
+                        </div>
 
-                    <div>
-                        <input
-                            value={this.state.Lender_id}
-                            type="text"
-                            placeholder="Lender"
-                            required
-                            onChange={this.handleChange("Lender_id")}
-                        />
-                    </div>
+                        <div>
+                            <input
+                                value={this.state.Lender_id}
+                                type="text"
+                                placeholder="Lender"
+                                required
+                                onChange={this.handleChange("Lender_id")}
+                            />
+                        </div>
 
-                    <div>
-                        <Button onClick={this.handleSubmit.bind(this)}>
-                            Create Loan
-                        </Button>
-                    </div>
-                </form>
+                        <div className="actions layout horizontal center-center">
+                            <Button onClick={this.handleSubmit.bind(this)}>
+                                Create Loan
+                            </Button>
+                        </div>
+                    </form>
+                </Paper>
             </section>
         );
     }

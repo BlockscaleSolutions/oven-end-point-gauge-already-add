@@ -67,6 +67,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    fetchFromBlockchain: actions.fetchFromBlockchain,
     fetchByLenderId: Lender_id => {
         return dispatch(actions.fetchByLenderId(Lender_id));
     }
