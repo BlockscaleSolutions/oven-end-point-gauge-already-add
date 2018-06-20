@@ -16,6 +16,13 @@ namespace LoanService.Controllers
             this._service = service;
         }
 
+        [HttpGet]
+        [Route("")]
+        public IActionResult Get()
+        {
+            return Ok(_service.Get());
+        }
+
         [HttpPost]
         [Route("create")]
         public IActionResult Create(LoanDto dto)
