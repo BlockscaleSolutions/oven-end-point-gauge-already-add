@@ -28,15 +28,21 @@ namespace LoanService.Services
             var loan = _LoanBuilder(dto);
             var loan_status = _LoanStatusBuilder(LoanStatuses.BORROWER_CREATED);
 
+            loan.LoanStatuses.Add(loan_status);
+
             _loans.Add(loan.id, loan);
             _loans_statuses.Add(loan_status.id, loan_status);
 
             return loan;
         }
 
-        public Loan Approved(int id)
+        public Loan Approved(int id, string Lender_id = null)
         {
             var loan = _loans[id];
+            if (String.IsNullOrWhiteSpace(loan.Lender_id))
+                loan.Lender_id = Lender_id;
+            else
+                loan.is_active = true;
             loan.LoanStatuses.Add(_LoanStatusBuilder(LoanStatuses.LENDER_REVIEWED_AND_APPROVED));
             return loan;
         }
@@ -44,6 +50,7 @@ namespace LoanService.Services
         public Loan TermsAccepted(int id)
         {
             var loan = _loans[id];
+            loan.is_active = true;
             loan.LoanStatuses.Add(_LoanStatusBuilder(LoanStatuses.BORROWER_TERMS_ACCEPTED));
             return loan;
         }
@@ -79,6 +86,7 @@ namespace LoanService.Services
         public Loan Close(int id)
         {
             var loan = _loans[id];
+            loan.is_active = false;
             loan.LoanStatuses.Add(_LoanStatusBuilder(LoanStatuses.CLOSE));
             return loan;
         }

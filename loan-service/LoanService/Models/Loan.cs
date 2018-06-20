@@ -16,6 +16,8 @@ namespace LoanService.Models
         public int term { get; set; }
         public int interest_rate { get; set; }
 
+        public bool is_active { get; set; }
+
         public HashSet<LoanStatus> LoanStatuses { get; set; }
     }
 }

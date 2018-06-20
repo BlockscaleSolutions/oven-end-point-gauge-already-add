@@ -9,7 +9,7 @@ namespace LoanService.Services
     {
         Dictionary<int, Loan> Get();
         Loan Create(LoanDto dto);
-        Loan Approved(int id);
+        Loan Approved(int id, string Lender_id = null);
         Loan TermsAccepted(int id);
         Loan FundsSent(int id);
         Loan FundsReceived(int id);

@@ -8,7 +8,8 @@ export default class extends React.Component {
             amount: "",
             term: "",
             interest_rate: "",
-            Lender_id: ""
+            Lender_id: "",
+            tx_hash: null
         };
 
         this.handleChange = field => event => {
@@ -24,7 +25,16 @@ export default class extends React.Component {
         let interest_rate = this.state.interest_rate;
         let Lender_id = this.state.Lender_id;
 
-        this.props.create(amount, term, interest_rate, Lender_id);
+        alert("Transaction sent, waiting for approval...");
+
+        let history = this.props.history;
+        this.props
+            .create(amount, term, interest_rate, Lender_id)
+            .then(tx_hash => {
+                this.setState({ tx_hash });
+                window.open(`https://rinkeby.etherscan.io/tx/${tx_hash}`);
+                //history.push(`/borrowers/${window.loggedInAddress}`);
+            });
     }
 
     render() {

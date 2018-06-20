@@ -50,44 +50,48 @@ uport
     });
 
 async function initContract() {
-  // RINKEBY
-  const address = '0x8c7bbeed980f9ebf0fd762864fdb26cb8dd0bcf5';
-  window.sendTxsDebt = await window.uportWeb3.eth.contract(DebtArtifacts.abi).at(address);
+    // RINKEBY
+    const address = "0x8c7bbeed980f9ebf0fd762864fdb26cb8dd0bcf5";
+    window.sendTxsDebt = await window.uportWeb3.eth
+        .contract(DebtArtifacts.abi)
+        .at(address);
 
-  initListeners();
+    initListeners();
 
-  // createLoan();
+    // createLoan();
 
-  // Cash received!
-  if (window.loggedInAddress === window.borrower) {
-    // loanReceived();
-  } else {
-    // loanPaid();
-  }
+    // Cash received!
+    if (window.loggedInAddress === window.borrower) {
+        // loanReceived();
+    } else {
+        // loanPaid();
+    }
 }
 
-function createLoan () {
-  window.sendTxsDebt.createLoanRequest(100, window.borrower, window.lender,
-  (err, txHash) => {
-    console.log(err)
-    console.log(txHash)
-  });
+function createLoan() {
+    window.sendTxsDebt.createLoanRequest(
+        100,
+        window.borrower,
+        window.lender,
+        (err, txHash) => {
+            console.log(err);
+            console.log(txHash);
+        }
+    );
 }
 
-function loanReceived () {
-  window.sendTxsDebt.loadReceived(
-  (err, txHash) => {
-    console.log(err)
-    console.log(txHash)
-  });
+function loanReceived() {
+    window.sendTxsDebt.loadReceived((err, txHash) => {
+        console.log(err);
+        console.log(txHash);
+    });
 }
 
-function loanPaid () {
-  window.sendTxsDebt.loadPaid(window.borrower,
-  (err, txHash) => {
-    console.log(err)
-    console.log(txHash)
-  });
+function loanPaid() {
+    window.sendTxsDebt.loadPaid(window.borrower, (err, txHash) => {
+        console.log(err);
+        console.log(txHash);
+    });
 }
 
 async function initListeners() {
@@ -136,6 +140,12 @@ export default class App extends React.Component {
 
                 <Route
                     exact
+                    path="/loans/approve"
+                    component={withLayout(withAuthorization("*")(Loan, Ooopps))}
+                />
+
+                <Route
+                    exact
                     path="/loans/:id?"
                     component={withLayout(withAuthorization("*")(Loan, Ooopps))}
                 />
@@ -150,7 +160,15 @@ export default class App extends React.Component {
 
                 <Route
                     exact
-                    path="/lenders"
+                    path="/borrowers/:Borrower_id?"
+                    component={withLayout(
+                        withAuthorization("*")(Borrower, Ooopps)
+                    )}
+                />
+
+                <Route
+                    exact
+                    path="/lenders/:Lender_id"
                     component={withLayout(
                         withAuthorization("*")(Lender, Ooopps)
                     )}
