@@ -41,7 +41,7 @@ export const create = (amount, term, interest_rate, Lender_id) => dispatch => {
                     //.then(resolve)
                     .catch(err => {
                         dispatch({ type: types.LOAN_POSTED_FAILED, err });
-                        alert("something went wrong");
+                        // alert("something went wrong");
                         reject(err);
                     });
             }
@@ -68,7 +68,7 @@ let _fetch = dispatch => {
         })
         .catch(err => {
             dispatch({ type: types.LOANS_FETCHING_FAILED, err });
-            alert("something went wrong");
+            // alert("something went wrong");
         });
 };
 
@@ -124,6 +124,6 @@ export const fetchOpenRequests = () => dispatch => {
         })
         .catch(err => {
             dispatch({ type: types.LOANS_FETCHING_FAILED, err });
-            alert("something went wrong");
+            // alert("something went wrong");
         });
 };
