@@ -21,33 +21,33 @@ ETHER STUFF
 import Web3 from "web3";
 
 import DebtArtifacts from "./truffle/build/contracts/Debt.json";
-import { Connect, SimpleSigner, MNID } from 'uport-connect'
+import { Connect, SimpleSigner, MNID } from "uport-connect";
 
-window.borrower = "0x33785c20deec47951d756d78c2cd71859af15f78";
-window.lender = "0xd969928b995b5d30c17575459703592d8fde9f63";
-
-const uport = new Connect('USAID Demo', {
-  clientId: '2ogrEddet3JBno1oXQZtJwFdWZHBmkyKh9X',
-  network: 'rinkeby',
-  signer: SimpleSigner('3bd60e956ceb731e606be7a5ca5e54a3b741fe0ff43fccc174e7da145ac08450')
-})
+const uport = new Connect("USAID Demo", {
+    clientId: "2ogrEddet3JBno1oXQZtJwFdWZHBmkyKh9X",
+    network: "rinkeby",
+    signer: SimpleSigner(
+        "3bd60e956ceb731e606be7a5ca5e54a3b741fe0ff43fccc174e7da145ac08450"
+    )
+});
 
 window.uportWeb3 = uport.getWeb3();
 
 // Request credentials to login
-uport.requestCredentials({
-  requested: ['name', 'phone', 'country'],
-  notifications: true // We want this if we want to recieve credentials
-})
-.then((credentials) => {
-  window.user = credentials;
+uport
+    .requestCredentials({
+        requested: ["name", "phone", "country"],
+        notifications: true // We want this if we want to recieve credentials
+    })
+    .then(credentials => {
+        window.user = credentials;
 
-  const decodedId = MNID.decode(credentials.address)
-  const specificNetworkAddress = decodedId.address
-  window.loggedInAddress = specificNetworkAddress;
+        const decodedId = MNID.decode(credentials.address);
+        const specificNetworkAddress = decodedId.address;
+        window.loggedInAddress = specificNetworkAddress;
 
-  initContract();
-});
+        initContract();
+    });
 
 async function initContract() {
   // RINKEBY
@@ -91,19 +91,23 @@ function loanPaid () {
 }
 
 async function initListeners() {
-  // Use our own node to listen for event
-  const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-  const address = '0x8c7bbeed980f9ebf0fd762864fdb26cb8dd0bcf5';
-  const debt = await web3.eth.contract(DebtArtifacts.abi).at(address);
+    // Use our own node to listen for event
+    const web3 = new Web3(
+        new Web3.providers.HttpProvider("http://localhost:8545")
+    );
+    const address = "0x8c7bbeed980f9ebf0fd762864fdb26cb8dd0bcf5";
+    const debt = await web3.eth.contract(DebtArtifacts.abi).at(address);
 
-  window.localWeb3 = web3;
-  window.getLogsDebt = debt;
+    window.localWeb3 = web3;
+    window.getLogsDebt = debt;
 
-  debt.allEvents({ fromBlock: 'latest', toBlock: 'latest' }).watch((err, res) => {
-    console.log(err)
-    console.log(res.event)
-    console.log(res.args)
-  });
+    debt.allEvents({ fromBlock: "latest", toBlock: "latest" }).watch(
+        (err, res) => {
+            console.log(err);
+            console.log(res.event);
+            console.log(res.args);
+        }
+    );
 }
 // *****************************************
 

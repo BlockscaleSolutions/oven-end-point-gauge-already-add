@@ -18,6 +18,11 @@ namespace LoanService.Services
             this._loans_statuses = new Dictionary<int, LoanStatus>();
         }
 
+        public Dictionary<int, Loan> Get()
+        {
+            return _loans;
+        }
+
         public Loan Create(LoanDto dto)
         {
             var loan = _LoanBuilder(dto);

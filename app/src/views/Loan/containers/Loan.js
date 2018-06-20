@@ -8,7 +8,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetch: id => actions.fetchById(id)
+    create: (amount, term, interest_rate, Lender_id) => {
+        return dispatch(actions.create(amount, term, interest_rate, Lender_id));
+    },
+    fetch: actions.fetchById
 });
 
 export default withRouter(
