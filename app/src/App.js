@@ -31,6 +31,8 @@ const uport = new Connect("USAID Demo", {
     )
 });
 
+window.borrower = '0x33785c20deec47951d756d78c2cd71859af15f78';
+window.lender = '0xd969928b995b5d30c17575459703592d8fde9f63';
 window.uportWeb3 = uport.getWeb3();
 
 // Request credentials to login
@@ -60,9 +62,9 @@ async function initContract() {
 
   // Cash received!
   if (window.loggedInAddress === window.borrower) {
-    // loanReceived();
+    loanReceived();
   } else {
-    // loanPaid();
+    loanPaid();
   }
 }
 
@@ -75,7 +77,7 @@ function createLoan () {
 }
 
 function loanReceived () {
-  window.sendTxsDebt.loadReceived(
+  window.sendTxsDebt.loanReceived(
   (err, txHash) => {
     console.log(err)
     console.log(txHash)
@@ -83,7 +85,7 @@ function loanReceived () {
 }
 
 function loanPaid () {
-  window.sendTxsDebt.loadPaid(window.borrower,
+  window.sendTxsDebt.loanPaid(window.borrower,
   (err, txHash) => {
     console.log(err)
     console.log(txHash)
