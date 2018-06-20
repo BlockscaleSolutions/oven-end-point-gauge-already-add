@@ -24,7 +24,6 @@ export const set = jwt => {
 export const authenticate = ({ username, password }) => dispatch => {
     dispatch(reset());
     dispatch({ type: _types.AUTHENTICATING });
-    debugger;
     return ws.auth
         .post("/sign-in", { username, password })
         .then(({ json, response }) => {
