@@ -53,7 +53,10 @@ function initListeners(contract) {
 
 
 function getPastLoans(contract, event, query) {
-  contract[event](query, { fromBlock: 0, toBlock: 'latest' }).get((err, res) => {
+  // RINKEBY!
+  const fromBlock = 2492715;
+  
+  contract[event](query, { fromBlock, toBlock: 'latest' }).get((err, res) => {
     console.log(err)
     console.log(res)
     console.log(res.length)

@@ -23,6 +23,9 @@ import Web3 from "web3";
 import DebtArtifacts from "./truffle/build/contracts/Debt.json";
 import { Connect, SimpleSigner, MNID } from 'uport-connect'
 
+window.borrower = "0x33785c20deec47951d756d78c2cd71859af15f78";
+window.lender = "0xd969928b995b5d30c17575459703592d8fde9f63";
+
 const uport = new Connect('USAID Demo', {
   clientId: '2ogrEddet3JBno1oXQZtJwFdWZHBmkyKh9X',
   network: 'rinkeby',
@@ -47,20 +50,44 @@ uport.requestCredentials({
 });
 
 async function initContract() {
-  // window.uportWeb3.version.getNetwork(async (err, netId) => {
-    // const address = DebtArtifacts.networks[netId].address;
-    // RINKEBY
+  // RINKEBY
   const address = '0x8c7bbeed980f9ebf0fd762864fdb26cb8dd0bcf5';
   window.sendTxsDebt = await window.uportWeb3.eth.contract(DebtArtifacts.abi).at(address);
 
   initListeners();
 
-  // window.debt.createLoanRequest(100, '0x1', '0x2',
-  // (err, txHash) => {
-  //   console.log(err)
-  //   console.log(txHash)
-  // });
-  // });
+  // createLoan();
+
+  // Cash received!
+  if (window.loggedInAddress === window.borrower) {
+    // loanReceived();
+  } else {
+    // loanPaid();
+  }
+}
+
+function createLoan () {
+  window.sendTxsDebt.createLoanRequest(100, window.borrower, window.lender,
+  (err, txHash) => {
+    console.log(err)
+    console.log(txHash)
+  });
+}
+
+function loanReceived () {
+  window.sendTxsDebt.loadReceived(
+  (err, txHash) => {
+    console.log(err)
+    console.log(txHash)
+  });
+}
+
+function loanPaid () {
+  window.sendTxsDebt.loadPaid(window.borrower,
+  (err, txHash) => {
+    console.log(err)
+    console.log(txHash)
+  });
 }
 
 async function initListeners() {
