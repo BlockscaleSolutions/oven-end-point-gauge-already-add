@@ -1,0 +1,12 @@
+.--Dashboard > div {
+    margin: 1rem 1.681rem;
+    padding: 1rem 1.618rem;
+}
+
+.--Dashboard h3 {
+    padding: 0 1rem;
+}
+
+.--Dashboard table {
+    padding-top: 100
+}

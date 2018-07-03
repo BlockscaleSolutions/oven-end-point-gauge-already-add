@@ -2,8 +2,23 @@ import React from "react";
 
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import "./_Create.css";
+
+// Hack mapping of user names to uport addresses and emails
+const users = [
+  {
+    name: "Erik Zvaigzne",
+    email: "erik@blockscalesolutions.com",
+    address: "0x33785c20deec47951d756d78c2cd71859af15f78"
+  },
+  { name: "Adam Lemmon",
+    email: "adam@blockscalesolutions.com",
+    address: "0xd969928b995b5d30c17575459703592d8fde9f63"
+  },
+];
 
 export default class extends React.Component {
     constructor(props) {
@@ -34,10 +49,10 @@ export default class extends React.Component {
         let history = this.props.history;
         this.props
             .create(amount, term, interest_rate, Lender_id)
-            .then(tx_hash => {
-                this.setState({ tx_hash });
-                window.open(`https://rinkeby.etherscan.io/tx/${tx_hash}`);
-                //history.push(`/borrowers/${window.loggedInAddress}`);
+            .then(txHash => {
+                window.pendingTxs.push(txHash);
+                history.push(`/borrowers/`);
+                window.open(`https://rinkeby.etherscan.io/tx/${txHash}`);
             });
     }
 
@@ -50,7 +65,7 @@ export default class extends React.Component {
                         <div>
                             <input
                                 value={this.state.amount}
-                                type="text"
+                                type="number"
                                 placeholder="Amount"
                                 required
                                 onChange={this.handleChange("amount")}
@@ -60,7 +75,7 @@ export default class extends React.Component {
                         <div>
                             <input
                                 value={this.state.term}
-                                type="text"
+                                type="number"
                                 placeholder="Term (days)"
                                 required
                                 onChange={this.handleChange("term")}
@@ -70,7 +85,7 @@ export default class extends React.Component {
                         <div>
                             <input
                                 value={this.state.interest_rate}
-                                type="text"
+                                type="number"
                                 placeholder="Interest Rate"
                                 required
                                 onChange={this.handleChange("interest_rate")}
@@ -78,13 +93,20 @@ export default class extends React.Component {
                         </div>
 
                         <div>
-                            <input
-                                value={this.state.Lender_id}
-                                type="text"
-                                placeholder="Lender"
-                                required
-                                onChange={this.handleChange("Lender_id")}
-                            />
+                          <TextField
+                            select
+                            label="Lender"
+                            fullWidth
+                            value={this.state.Lender_id}
+                            required
+                            onChange={this.handleChange('Lender_id')}
+                          >
+                            {users.map(user => (
+                              <MenuItem key={user.name} value={user.address}>
+                                {user.name}
+                              </MenuItem>
+                            ))}
+                          </TextField>
                         </div>
 
                         <div className="actions layout horizontal center-center">

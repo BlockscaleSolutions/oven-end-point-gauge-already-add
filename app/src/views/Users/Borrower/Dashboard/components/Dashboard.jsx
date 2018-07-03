@@ -1,72 +1,83 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import ObligationTable from "./ObligationTable";
+import PendingTxsTable from "./PendingTxsTable";
+
+import "./Dashboard.css";
+
+import { connect } from "../../../../../web3";
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: []
+            loansCreated: null,
+            loansReceived: null,
+            loansPaid: null,
+            pendingTxs: [],
         };
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({ list: window.logs });
-        }, 10000);
-        let Borrower_id = this.props.match.params.Borrower_id;
-        this.props.fetchByBorrowerId(Borrower_id);
-        // setTimeout()
+    async componentDidMount() {
+      if (!window.loggedInAddress) {
+        await connect('borrower');
+      }
+
+      this.setState({ loansCreated: window.LoanCreated });
+      this.setState({ loansReceived: window.LoanReceived });
+      this.setState({ loansPaid: window.LoanPaid });
+
+      if (window.pendingTxs.length) {
+        this.setState(prevState => ({
+          pendingTxs: [...prevState.pendingTxs, window.pendingTxs]
+        }))
+      }
     }
 
     render() {
         return (
-            <section>
+            <section className="--Dashboard" style={{ padding: 50 }}>
                 <header />
-
                 <div>
                     <Link to="/loans">REQUEST LOAN</Link>
                 </div>
 
-                <article>
-                    <h3>requests</h3>
-                    <ul>
-                        {this.state.list.map((loan, i) => (
-                            <li key={i}>{JSON.stringify(loan)}</li>
-                        ))}
-                    </ul>
+                <h1>Paid Debt Obligations: {this.state.loansPaid ? this.state.loansPaid.length : 0}</h1>
+                <h1>Opened Debt Obligations: {this.state.loansCreated ? this.state.loansCreated.length : 0}</h1>
+                <h1>Received Debt Obligations: {this.state.loansReceived ? this.state.loansReceived.length : 0}</h1>
+
+                {
+                  this.state.pendingTxs.length
+                  ?
+                  <article style={{"marginTop": 100}}>
+                      <h3>Pending Transactions</h3>
+                      {
+                        <PendingTxsTable data={this.state.pendingTxs}/>
+                      }
+                  </article>
+                  : ""
+                }
+
+                <article style={{"marginTop": 100}}>
+                    <h3>Completed Debt Obligations</h3>
+                    {
+                      (this.state.loansPaid ? <ObligationTable data={this.state.loansPaid}/> : "")
+                    }
                 </article>
 
-                <article>
-                    <h3>open obligations</h3>
-                    <ul>
-                        {this.props.loans
-                            .filter(loan => loan.is_active)
-                            .map((loan, i) => (
-                                <li key={i}>{JSON.stringify(loan)}</li>
-                            ))}
-                    </ul>
+                <article style={{"marginTop": 100}}>
+                    <h3>Received Debt Obligations</h3>
+                    {
+                      (this.state.loansReceived ? <ObligationTable data={this.state.loansReceived}/> : "")
+                    }
                 </article>
 
-                <article>
-                    <h3>open requests</h3>
-                    <ul>
-                        {this.props.loans
-                            .filter(loan => !loan.is_active)
-                            .map((loan, i) => (
-                                <li key={i}>{JSON.stringify(loan)}</li>
-                            ))}
-                    </ul>
-                </article>
-
-                <article>
-                    <h3>history</h3>
-                    <ul>
-                        {this.props.loans
-                            .filter(loan => !loan.is_active)
-                            .map((loan, i) => (
-                                <li key={i}>{JSON.stringify(loan)}</li>
-                            ))}
-                    </ul>
+                <article style={{"marginTop": 100}}>
+                    <h3>Open Debt Obligations</h3>
+                    {
+                      (this.state.loansCreated ? <ObligationTable data={this.state.loansCreated}/> : "")
+                    }
                 </article>
             </section>
         );

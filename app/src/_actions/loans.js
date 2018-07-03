@@ -12,40 +12,15 @@ export const create = (amount, term, interest_rate, Lender_id) => dispatch => {
     let Borrower_id = window.loggedInAddress;
 
     return new Promise((resolve, reject) => {
-        window.sendTxsDebt.createLoanRequest(
-            amount,
-            Borrower_id,
-            Lender_id,
-            (err, txHash) => {
-                resolve(txHash);
-                dispatch({ type: types.LOAN_POSTED });
-                fetch(`${ROOT_URL}/create`, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        Borrower_id,
-                        Lender_id,
-                        amount,
-                        term,
-                        interest_rate
-                    }),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(res => res.json())
-                    .then(json => {
-                        dispatch({ type: types.LOAN_POSTED_COMPLETED });
-                        dispatch({ type: types.LOAN_CREATED, loan: json });
-                        return json;
-                    })
-                    //.then(resolve)
-                    .catch(err => {
-                        dispatch({ type: types.LOAN_POSTED_FAILED, err });
-                        // alert("something went wrong");
-                        reject(err);
-                    });
-            }
-        );
+      // resolve('txHash');
+      window.sendTxsDebt.createLoanRequest(
+          amount,
+          Borrower_id,
+          Lender_id,
+          (err, txHash) => {
+            resolve(txHash);
+          }
+      );
     });
 };
 
