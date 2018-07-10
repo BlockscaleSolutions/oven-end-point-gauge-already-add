@@ -60,7 +60,7 @@ export function getEventLogs(_event, filter, fromBlock=2492715, toBlock="latest"
     return new Promise(async (resolve, reject) => {
       window.getLogsDebt[_event](filter, { fromBlock, toBlock }).get(
          (e, r) => {
-             window[_event] = r;
+             window[_event] = r.reverse();
              resolve();
          }
      );
@@ -83,13 +83,15 @@ export function loanReceived() {
     window.sendTxsDebt.loanReceived((err, txHash) => {
         console.log(err);
         console.log(txHash);
+        if (txHash) window.open(`http://rinkeby.etherscan.io/tx/${txHash}`);
     });
 }
 
-export function loanPaid() {
-    window.sendTxsDebt.loanPaid(window.borrower, (err, txHash) => {
+export function loanPaid(borrower) {
+    window.sendTxsDebt.loanPaid(borrower, (err, txHash) => {
         console.log(err);
         console.log(txHash);
+        if (txHash) window.open(`http://rinkeby.etherscan.io/tx/${txHash}`);
     });
 }
 

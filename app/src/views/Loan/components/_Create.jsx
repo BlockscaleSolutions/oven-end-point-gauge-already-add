@@ -44,16 +44,18 @@ export default class extends React.Component {
         let interest_rate = this.state.interest_rate;
         let Lender_id = this.state.Lender_id;
 
-        alert("Transaction sent, waiting for approval...");
-
         let history = this.props.history;
-        this.props
-            .create(amount, term, interest_rate, Lender_id)
-            .then(txHash => {
-                window.pendingTxs.push(txHash);
-                history.push(`/borrowers/`);
-                window.open(`https://rinkeby.etherscan.io/tx/${txHash}`);
-            });
+
+        alert("Transaction sent, waiting for approval...");
+        history.push(`/borrowers/`);
+        window.pendingTxs.push(`Amount: ${amount}, Lender: ${Lender_id}`);
+
+        // this.props
+        //     .create(amount, term, interest_rate, Lender_id)
+        //     .then(txHash => {
+        //         history.push(`/borrowers/`);
+        //         window.open(`https://rinkeby.etherscan.io/tx/${txHash}`);
+        //     });
     }
 
     render() {

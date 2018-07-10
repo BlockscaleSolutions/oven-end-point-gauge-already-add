@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
   root: {
@@ -27,6 +28,7 @@ function SimpleTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
+            <TableCell><Checkbox/></TableCell>
             <TableCell>Event</TableCell>
             <TableCell>Borrower</TableCell>
             <TableCell>Lender</TableCell>
@@ -38,17 +40,20 @@ function SimpleTable(props) {
           {props.data.map(n => {
             return (
               <TableRow key={n.blockHash + n.logIndex}>
+                <TableCell><Checkbox/></TableCell>
                 <TableCell component="th" scope="row">
                   {n.event}
                 </TableCell>
                 <TableCell>{n.args.borrower}</TableCell>
                 <TableCell>{n.args.lender}</TableCell>
                 {
-                  (n.args.amount &&
+                  (n.args.amount ?
                     <TableCell>{n.args.amount.toNumber()}</TableCell>
+                    :
+                    <TableCell>{100}</TableCell>
                   )
                 }
-                <TableCell>{n.blockNumber}</TableCell>
+                <TableCell onClick={() => window.open(`http://rinkeby.etherscan.io/tx/${n.transactionHash}`)}>{n.blockNumber}</TableCell>
               </TableRow>
             );
           })}

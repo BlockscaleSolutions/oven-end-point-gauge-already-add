@@ -18,6 +18,8 @@ export const create = (amount, term, interest_rate, Lender_id) => dispatch => {
           Borrower_id,
           Lender_id,
           (err, txHash) => {
+            console.error(err)
+            console.log(txHash)
             resolve(txHash);
           }
       );

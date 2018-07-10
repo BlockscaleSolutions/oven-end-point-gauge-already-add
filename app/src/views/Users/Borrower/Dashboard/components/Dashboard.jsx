@@ -6,7 +6,7 @@ import PendingTxsTable from "./PendingTxsTable";
 
 import "./Dashboard.css";
 
-import { connect } from "../../../../../web3";
+import { connect, loanReceived } from "../../../../../web3";
 
 export default class extends React.Component {
     constructor(props) {
@@ -33,6 +33,11 @@ export default class extends React.Component {
           pendingTxs: [...prevState.pendingTxs, window.pendingTxs]
         }))
       }
+    }
+
+    claimLoanReceived() {
+      loanReceived();
+      alert('Transaction sent, waiting for block inclusion...');
     }
 
     render() {
@@ -75,6 +80,7 @@ export default class extends React.Component {
 
                 <article style={{"marginTop": 100}}>
                     <h3>Open Debt Obligations</h3>
+                    <Button onClick={() => this.claimLoanReceived()}>CLAIM LOAN RECEIVED</Button>
                     {
                       (this.state.loansCreated ? <ObligationTable data={this.state.loansCreated}/> : "")
                     }
